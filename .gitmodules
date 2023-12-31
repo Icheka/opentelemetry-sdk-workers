@@ -2,6 +2,3 @@
 [submodule "packages/opentelemetry-sdk-workers/proto"]
 	path = packages/opentelemetry-sdk-workers/proto
 	url = https://github.com/open-telemetry/opentelemetry-proto
-[submodule "packages/opentelemetry-sdk-workers/opentelemetry-proto"]
-	path = packages/opentelemetry-sdk-workers/opentelemetry-proto
-	url = https://github.com/open-telemetry/opentelemetry-proto

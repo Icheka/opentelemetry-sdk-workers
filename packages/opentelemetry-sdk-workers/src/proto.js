@@ -2522,7 +2522,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                      * @property {Uint8Array|null} [spanId] Span spanId
                      * @property {string|null} [traceState] Span traceState
                      * @property {Uint8Array|null} [parentSpanId] Span parentSpanId
-                     * @property {number|null} [flags] Span flags
                      * @property {string|null} [name] Span name
                      * @property {opentelemetry.proto.trace.v1.Span.SpanKind|null} [kind] Span kind
                      * @property {number|Long|null} [startTimeUnixNano] Span startTimeUnixNano
@@ -2585,14 +2584,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                      * @instance
                      */
                     Span.prototype.parentSpanId = $util.newBuffer([]);
-
-                    /**
-                     * Span flags.
-                     * @member {number} flags
-                     * @memberof opentelemetry.proto.trace.v1.Span
-                     * @instance
-                     */
-                    Span.prototype.flags = 0;
 
                     /**
                      * Span name.
@@ -2739,8 +2730,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                             writer.uint32(/* id 14, wireType 0 =*/112).uint32(message.droppedLinksCount);
                         if (message.status != null && Object.hasOwnProperty.call(message, "status"))
                             $root.opentelemetry.proto.trace.v1.Status.encode(message.status, writer.uint32(/* id 15, wireType 2 =*/122).fork()).ldelim();
-                        if (message.flags != null && Object.hasOwnProperty.call(message, "flags"))
-                            writer.uint32(/* id 16, wireType 5 =*/133).fixed32(message.flags);
                         return writer;
                     };
 
@@ -2789,10 +2778,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                                 }
                             case 4: {
                                     message.parentSpanId = reader.bytes();
-                                    break;
-                                }
-                            case 16: {
-                                    message.flags = reader.fixed32();
                                     break;
                                 }
                             case 5: {
@@ -2892,9 +2877,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                         if (message.parentSpanId != null && message.hasOwnProperty("parentSpanId"))
                             if (!(message.parentSpanId && typeof message.parentSpanId.length === "number" || $util.isString(message.parentSpanId)))
                                 return "parentSpanId: buffer expected";
-                        if (message.flags != null && message.hasOwnProperty("flags"))
-                            if (!$util.isInteger(message.flags))
-                                return "flags: integer expected";
                         if (message.name != null && message.hasOwnProperty("name"))
                             if (!$util.isString(message.name))
                                 return "name: string expected";
@@ -2989,8 +2971,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                                 $util.base64.decode(object.parentSpanId, message.parentSpanId = $util.newBuffer($util.base64.length(object.parentSpanId)), 0);
                             else if (object.parentSpanId.length >= 0)
                                 message.parentSpanId = object.parentSpanId;
-                        if (object.flags != null)
-                            message.flags = object.flags >>> 0;
                         if (object.name != null)
                             message.name = String(object.name);
                         switch (object.kind) {
@@ -3144,7 +3124,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                             object.droppedEventsCount = 0;
                             object.droppedLinksCount = 0;
                             object.status = null;
-                            object.flags = 0;
                         }
                         if (message.traceId != null && message.hasOwnProperty("traceId"))
                             object.traceId = options.bytes === String ? $util.base64.encode(message.traceId, 0, message.traceId.length) : options.bytes === Array ? Array.prototype.slice.call(message.traceId) : message.traceId;
@@ -3191,8 +3170,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                             object.droppedLinksCount = message.droppedLinksCount;
                         if (message.status != null && message.hasOwnProperty("status"))
                             object.status = $root.opentelemetry.proto.trace.v1.Status.toObject(message.status, options);
-                        if (message.flags != null && message.hasOwnProperty("flags"))
-                            object.flags = message.flags;
                         return object;
                     };
 
@@ -3564,7 +3541,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                          * @property {string|null} [traceState] Link traceState
                          * @property {Array.<opentelemetry.proto.common.v1.IKeyValue>|null} [attributes] Link attributes
                          * @property {number|null} [droppedAttributesCount] Link droppedAttributesCount
-                         * @property {number|null} [flags] Link flags
                          */
 
                         /**
@@ -3624,14 +3600,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                         Link.prototype.droppedAttributesCount = 0;
 
                         /**
-                         * Link flags.
-                         * @member {number} flags
-                         * @memberof opentelemetry.proto.trace.v1.Span.Link
-                         * @instance
-                         */
-                        Link.prototype.flags = 0;
-
-                        /**
                          * Creates a new Link instance using the specified properties.
                          * @function create
                          * @memberof opentelemetry.proto.trace.v1.Span.Link
@@ -3666,8 +3634,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                                     $root.opentelemetry.proto.common.v1.KeyValue.encode(message.attributes[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                             if (message.droppedAttributesCount != null && Object.hasOwnProperty.call(message, "droppedAttributesCount"))
                                 writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.droppedAttributesCount);
-                            if (message.flags != null && Object.hasOwnProperty.call(message, "flags"))
-                                writer.uint32(/* id 6, wireType 5 =*/53).fixed32(message.flags);
                             return writer;
                         };
 
@@ -3722,10 +3688,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                                     }
                                 case 5: {
                                         message.droppedAttributesCount = reader.uint32();
-                                        break;
-                                    }
-                                case 6: {
-                                        message.flags = reader.fixed32();
                                         break;
                                     }
                                 default:
@@ -3784,9 +3746,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                             if (message.droppedAttributesCount != null && message.hasOwnProperty("droppedAttributesCount"))
                                 if (!$util.isInteger(message.droppedAttributesCount))
                                     return "droppedAttributesCount: integer expected";
-                            if (message.flags != null && message.hasOwnProperty("flags"))
-                                if (!$util.isInteger(message.flags))
-                                    return "flags: integer expected";
                             return null;
                         };
 
@@ -3826,8 +3785,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                             }
                             if (object.droppedAttributesCount != null)
                                 message.droppedAttributesCount = object.droppedAttributesCount >>> 0;
-                            if (object.flags != null)
-                                message.flags = object.flags >>> 0;
                             return message;
                         };
 
@@ -3863,7 +3820,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                                 }
                                 object.traceState = "";
                                 object.droppedAttributesCount = 0;
-                                object.flags = 0;
                             }
                             if (message.traceId != null && message.hasOwnProperty("traceId"))
                                 object.traceId = options.bytes === String ? $util.base64.encode(message.traceId, 0, message.traceId.length) : options.bytes === Array ? Array.prototype.slice.call(message.traceId) : message.traceId;
@@ -3878,8 +3834,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                             }
                             if (message.droppedAttributesCount != null && message.hasOwnProperty("droppedAttributesCount"))
                                 object.droppedAttributesCount = message.droppedAttributesCount;
-                            if (message.flags != null && message.hasOwnProperty("flags"))
-                                object.flags = message.flags;
                             return object;
                         };
 
@@ -4180,20 +4134,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                     })();
 
                     return Status;
-                })();
-
-                /**
-                 * SpanFlags enum.
-                 * @name opentelemetry.proto.trace.v1.SpanFlags
-                 * @enum {number}
-                 * @property {number} SPAN_FLAGS_DO_NOT_USE=0 SPAN_FLAGS_DO_NOT_USE value
-                 * @property {number} SPAN_FLAGS_TRACE_FLAGS_MASK=255 SPAN_FLAGS_TRACE_FLAGS_MASK value
-                 */
-                v1.SpanFlags = (function() {
-                    const valuesById = {}, values = Object.create(valuesById);
-                    values[valuesById[0] = "SPAN_FLAGS_DO_NOT_USE"] = 0;
-                    values[valuesById[255] = "SPAN_FLAGS_TRACE_FLAGS_MASK"] = 255;
-                    return values;
                 })();
 
                 return v1;
@@ -5062,13 +5002,13 @@ export const opentelemetry = $root.opentelemetry = (() => {
                  * LogRecordFlags enum.
                  * @name opentelemetry.proto.logs.v1.LogRecordFlags
                  * @enum {number}
-                 * @property {number} LOG_RECORD_FLAGS_DO_NOT_USE=0 LOG_RECORD_FLAGS_DO_NOT_USE value
-                 * @property {number} LOG_RECORD_FLAGS_TRACE_FLAGS_MASK=255 LOG_RECORD_FLAGS_TRACE_FLAGS_MASK value
+                 * @property {number} LOG_RECORD_FLAG_UNSPECIFIED=0 LOG_RECORD_FLAG_UNSPECIFIED value
+                 * @property {number} LOG_RECORD_FLAG_TRACE_FLAGS_MASK=255 LOG_RECORD_FLAG_TRACE_FLAGS_MASK value
                  */
                 v1.LogRecordFlags = (function() {
                     const valuesById = {}, values = Object.create(valuesById);
-                    values[valuesById[0] = "LOG_RECORD_FLAGS_DO_NOT_USE"] = 0;
-                    values[valuesById[255] = "LOG_RECORD_FLAGS_TRACE_FLAGS_MASK"] = 255;
+                    values[valuesById[0] = "LOG_RECORD_FLAG_UNSPECIFIED"] = 0;
+                    values[valuesById[255] = "LOG_RECORD_FLAG_TRACE_FLAGS_MASK"] = 255;
                     return values;
                 })();
 
@@ -6021,7 +5961,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                          * Properties of an ExportLogsServiceResponse.
                          * @memberof opentelemetry.proto.collector.logs.v1
                          * @interface IExportLogsServiceResponse
-                         * @property {opentelemetry.proto.collector.logs.v1.IExportLogsPartialSuccess|null} [partialSuccess] ExportLogsServiceResponse partialSuccess
                          */
 
                         /**
@@ -6038,14 +5977,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                                     if (properties[keys[i]] != null)
                                         this[keys[i]] = properties[keys[i]];
                         }
-
-                        /**
-                         * ExportLogsServiceResponse partialSuccess.
-                         * @member {opentelemetry.proto.collector.logs.v1.IExportLogsPartialSuccess|null|undefined} partialSuccess
-                         * @memberof opentelemetry.proto.collector.logs.v1.ExportLogsServiceResponse
-                         * @instance
-                         */
-                        ExportLogsServiceResponse.prototype.partialSuccess = null;
 
                         /**
                          * Creates a new ExportLogsServiceResponse instance using the specified properties.
@@ -6071,8 +6002,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                         ExportLogsServiceResponse.encode = function encode(message, writer) {
                             if (!writer)
                                 writer = $Writer.create();
-                            if (message.partialSuccess != null && Object.hasOwnProperty.call(message, "partialSuccess"))
-                                $root.opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess.encode(message.partialSuccess, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
                             return writer;
                         };
 
@@ -6107,10 +6036,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                             while (reader.pos < end) {
                                 let tag = reader.uint32();
                                 switch (tag >>> 3) {
-                                case 1: {
-                                        message.partialSuccess = $root.opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess.decode(reader, reader.uint32());
-                                        break;
-                                    }
                                 default:
                                     reader.skipType(tag & 7);
                                     break;
@@ -6146,11 +6071,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                         ExportLogsServiceResponse.verify = function verify(message) {
                             if (typeof message !== "object" || message === null)
                                 return "object expected";
-                            if (message.partialSuccess != null && message.hasOwnProperty("partialSuccess")) {
-                                let error = $root.opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess.verify(message.partialSuccess);
-                                if (error)
-                                    return "partialSuccess." + error;
-                            }
                             return null;
                         };
 
@@ -6165,13 +6085,7 @@ export const opentelemetry = $root.opentelemetry = (() => {
                         ExportLogsServiceResponse.fromObject = function fromObject(object) {
                             if (object instanceof $root.opentelemetry.proto.collector.logs.v1.ExportLogsServiceResponse)
                                 return object;
-                            let message = new $root.opentelemetry.proto.collector.logs.v1.ExportLogsServiceResponse();
-                            if (object.partialSuccess != null) {
-                                if (typeof object.partialSuccess !== "object")
-                                    throw TypeError(".opentelemetry.proto.collector.logs.v1.ExportLogsServiceResponse.partialSuccess: object expected");
-                                message.partialSuccess = $root.opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess.fromObject(object.partialSuccess);
-                            }
-                            return message;
+                            return new $root.opentelemetry.proto.collector.logs.v1.ExportLogsServiceResponse();
                         };
 
                         /**
@@ -6183,15 +6097,8 @@ export const opentelemetry = $root.opentelemetry = (() => {
                          * @param {$protobuf.IConversionOptions} [options] Conversion options
                          * @returns {Object.<string,*>} Plain object
                          */
-                        ExportLogsServiceResponse.toObject = function toObject(message, options) {
-                            if (!options)
-                                options = {};
-                            let object = {};
-                            if (options.defaults)
-                                object.partialSuccess = null;
-                            if (message.partialSuccess != null && message.hasOwnProperty("partialSuccess"))
-                                object.partialSuccess = $root.opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess.toObject(message.partialSuccess, options);
-                            return object;
+                        ExportLogsServiceResponse.toObject = function toObject() {
+                            return {};
                         };
 
                         /**
@@ -6221,247 +6128,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                         };
 
                         return ExportLogsServiceResponse;
-                    })();
-
-                    v1.ExportLogsPartialSuccess = (function() {
-
-                        /**
-                         * Properties of an ExportLogsPartialSuccess.
-                         * @memberof opentelemetry.proto.collector.logs.v1
-                         * @interface IExportLogsPartialSuccess
-                         * @property {number|Long|null} [rejectedLogRecords] ExportLogsPartialSuccess rejectedLogRecords
-                         * @property {string|null} [errorMessage] ExportLogsPartialSuccess errorMessage
-                         */
-
-                        /**
-                         * Constructs a new ExportLogsPartialSuccess.
-                         * @memberof opentelemetry.proto.collector.logs.v1
-                         * @classdesc Represents an ExportLogsPartialSuccess.
-                         * @implements IExportLogsPartialSuccess
-                         * @constructor
-                         * @param {opentelemetry.proto.collector.logs.v1.IExportLogsPartialSuccess=} [properties] Properties to set
-                         */
-                        function ExportLogsPartialSuccess(properties) {
-                            if (properties)
-                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                    if (properties[keys[i]] != null)
-                                        this[keys[i]] = properties[keys[i]];
-                        }
-
-                        /**
-                         * ExportLogsPartialSuccess rejectedLogRecords.
-                         * @member {number|Long} rejectedLogRecords
-                         * @memberof opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess
-                         * @instance
-                         */
-                        ExportLogsPartialSuccess.prototype.rejectedLogRecords = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-                        /**
-                         * ExportLogsPartialSuccess errorMessage.
-                         * @member {string} errorMessage
-                         * @memberof opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess
-                         * @instance
-                         */
-                        ExportLogsPartialSuccess.prototype.errorMessage = "";
-
-                        /**
-                         * Creates a new ExportLogsPartialSuccess instance using the specified properties.
-                         * @function create
-                         * @memberof opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess
-                         * @static
-                         * @param {opentelemetry.proto.collector.logs.v1.IExportLogsPartialSuccess=} [properties] Properties to set
-                         * @returns {opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess} ExportLogsPartialSuccess instance
-                         */
-                        ExportLogsPartialSuccess.create = function create(properties) {
-                            return new ExportLogsPartialSuccess(properties);
-                        };
-
-                        /**
-                         * Encodes the specified ExportLogsPartialSuccess message. Does not implicitly {@link opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess.verify|verify} messages.
-                         * @function encode
-                         * @memberof opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess
-                         * @static
-                         * @param {opentelemetry.proto.collector.logs.v1.IExportLogsPartialSuccess} message ExportLogsPartialSuccess message or plain object to encode
-                         * @param {$protobuf.Writer} [writer] Writer to encode to
-                         * @returns {$protobuf.Writer} Writer
-                         */
-                        ExportLogsPartialSuccess.encode = function encode(message, writer) {
-                            if (!writer)
-                                writer = $Writer.create();
-                            if (message.rejectedLogRecords != null && Object.hasOwnProperty.call(message, "rejectedLogRecords"))
-                                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.rejectedLogRecords);
-                            if (message.errorMessage != null && Object.hasOwnProperty.call(message, "errorMessage"))
-                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.errorMessage);
-                            return writer;
-                        };
-
-                        /**
-                         * Encodes the specified ExportLogsPartialSuccess message, length delimited. Does not implicitly {@link opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess.verify|verify} messages.
-                         * @function encodeDelimited
-                         * @memberof opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess
-                         * @static
-                         * @param {opentelemetry.proto.collector.logs.v1.IExportLogsPartialSuccess} message ExportLogsPartialSuccess message or plain object to encode
-                         * @param {$protobuf.Writer} [writer] Writer to encode to
-                         * @returns {$protobuf.Writer} Writer
-                         */
-                        ExportLogsPartialSuccess.encodeDelimited = function encodeDelimited(message, writer) {
-                            return this.encode(message, writer).ldelim();
-                        };
-
-                        /**
-                         * Decodes an ExportLogsPartialSuccess message from the specified reader or buffer.
-                         * @function decode
-                         * @memberof opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess
-                         * @static
-                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                         * @param {number} [length] Message length if known beforehand
-                         * @returns {opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess} ExportLogsPartialSuccess
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        ExportLogsPartialSuccess.decode = function decode(reader, length) {
-                            if (!(reader instanceof $Reader))
-                                reader = $Reader.create(reader);
-                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess();
-                            while (reader.pos < end) {
-                                let tag = reader.uint32();
-                                switch (tag >>> 3) {
-                                case 1: {
-                                        message.rejectedLogRecords = reader.int64();
-                                        break;
-                                    }
-                                case 2: {
-                                        message.errorMessage = reader.string();
-                                        break;
-                                    }
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                                }
-                            }
-                            return message;
-                        };
-
-                        /**
-                         * Decodes an ExportLogsPartialSuccess message from the specified reader or buffer, length delimited.
-                         * @function decodeDelimited
-                         * @memberof opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess
-                         * @static
-                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                         * @returns {opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess} ExportLogsPartialSuccess
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        ExportLogsPartialSuccess.decodeDelimited = function decodeDelimited(reader) {
-                            if (!(reader instanceof $Reader))
-                                reader = new $Reader(reader);
-                            return this.decode(reader, reader.uint32());
-                        };
-
-                        /**
-                         * Verifies an ExportLogsPartialSuccess message.
-                         * @function verify
-                         * @memberof opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess
-                         * @static
-                         * @param {Object.<string,*>} message Plain object to verify
-                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                         */
-                        ExportLogsPartialSuccess.verify = function verify(message) {
-                            if (typeof message !== "object" || message === null)
-                                return "object expected";
-                            if (message.rejectedLogRecords != null && message.hasOwnProperty("rejectedLogRecords"))
-                                if (!$util.isInteger(message.rejectedLogRecords) && !(message.rejectedLogRecords && $util.isInteger(message.rejectedLogRecords.low) && $util.isInteger(message.rejectedLogRecords.high)))
-                                    return "rejectedLogRecords: integer|Long expected";
-                            if (message.errorMessage != null && message.hasOwnProperty("errorMessage"))
-                                if (!$util.isString(message.errorMessage))
-                                    return "errorMessage: string expected";
-                            return null;
-                        };
-
-                        /**
-                         * Creates an ExportLogsPartialSuccess message from a plain object. Also converts values to their respective internal types.
-                         * @function fromObject
-                         * @memberof opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess
-                         * @static
-                         * @param {Object.<string,*>} object Plain object
-                         * @returns {opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess} ExportLogsPartialSuccess
-                         */
-                        ExportLogsPartialSuccess.fromObject = function fromObject(object) {
-                            if (object instanceof $root.opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess)
-                                return object;
-                            let message = new $root.opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess();
-                            if (object.rejectedLogRecords != null)
-                                if ($util.Long)
-                                    (message.rejectedLogRecords = $util.Long.fromValue(object.rejectedLogRecords)).unsigned = false;
-                                else if (typeof object.rejectedLogRecords === "string")
-                                    message.rejectedLogRecords = parseInt(object.rejectedLogRecords, 10);
-                                else if (typeof object.rejectedLogRecords === "number")
-                                    message.rejectedLogRecords = object.rejectedLogRecords;
-                                else if (typeof object.rejectedLogRecords === "object")
-                                    message.rejectedLogRecords = new $util.LongBits(object.rejectedLogRecords.low >>> 0, object.rejectedLogRecords.high >>> 0).toNumber();
-                            if (object.errorMessage != null)
-                                message.errorMessage = String(object.errorMessage);
-                            return message;
-                        };
-
-                        /**
-                         * Creates a plain object from an ExportLogsPartialSuccess message. Also converts values to other types if specified.
-                         * @function toObject
-                         * @memberof opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess
-                         * @static
-                         * @param {opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess} message ExportLogsPartialSuccess
-                         * @param {$protobuf.IConversionOptions} [options] Conversion options
-                         * @returns {Object.<string,*>} Plain object
-                         */
-                        ExportLogsPartialSuccess.toObject = function toObject(message, options) {
-                            if (!options)
-                                options = {};
-                            let object = {};
-                            if (options.defaults) {
-                                if ($util.Long) {
-                                    let long = new $util.Long(0, 0, false);
-                                    object.rejectedLogRecords = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                                } else
-                                    object.rejectedLogRecords = options.longs === String ? "0" : 0;
-                                object.errorMessage = "";
-                            }
-                            if (message.rejectedLogRecords != null && message.hasOwnProperty("rejectedLogRecords"))
-                                if (typeof message.rejectedLogRecords === "number")
-                                    object.rejectedLogRecords = options.longs === String ? String(message.rejectedLogRecords) : message.rejectedLogRecords;
-                                else
-                                    object.rejectedLogRecords = options.longs === String ? $util.Long.prototype.toString.call(message.rejectedLogRecords) : options.longs === Number ? new $util.LongBits(message.rejectedLogRecords.low >>> 0, message.rejectedLogRecords.high >>> 0).toNumber() : message.rejectedLogRecords;
-                            if (message.errorMessage != null && message.hasOwnProperty("errorMessage"))
-                                object.errorMessage = message.errorMessage;
-                            return object;
-                        };
-
-                        /**
-                         * Converts this ExportLogsPartialSuccess to JSON.
-                         * @function toJSON
-                         * @memberof opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess
-                         * @instance
-                         * @returns {Object.<string,*>} JSON object
-                         */
-                        ExportLogsPartialSuccess.prototype.toJSON = function toJSON() {
-                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                        };
-
-                        /**
-                         * Gets the default type url for ExportLogsPartialSuccess
-                         * @function getTypeUrl
-                         * @memberof opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess
-                         * @static
-                         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
-                         * @returns {string} The default type url
-                         */
-                        ExportLogsPartialSuccess.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
-                            if (typeUrlPrefix === undefined) {
-                                typeUrlPrefix = "type.googleapis.com";
-                            }
-                            return typeUrlPrefix + "/opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess";
-                        };
-
-                        return ExportLogsPartialSuccess;
                     })();
 
                     return v1;
@@ -6786,7 +6452,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                          * Properties of an ExportTraceServiceResponse.
                          * @memberof opentelemetry.proto.collector.trace.v1
                          * @interface IExportTraceServiceResponse
-                         * @property {opentelemetry.proto.collector.trace.v1.IExportTracePartialSuccess|null} [partialSuccess] ExportTraceServiceResponse partialSuccess
                          */
 
                         /**
@@ -6803,14 +6468,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                                     if (properties[keys[i]] != null)
                                         this[keys[i]] = properties[keys[i]];
                         }
-
-                        /**
-                         * ExportTraceServiceResponse partialSuccess.
-                         * @member {opentelemetry.proto.collector.trace.v1.IExportTracePartialSuccess|null|undefined} partialSuccess
-                         * @memberof opentelemetry.proto.collector.trace.v1.ExportTraceServiceResponse
-                         * @instance
-                         */
-                        ExportTraceServiceResponse.prototype.partialSuccess = null;
 
                         /**
                          * Creates a new ExportTraceServiceResponse instance using the specified properties.
@@ -6836,8 +6493,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                         ExportTraceServiceResponse.encode = function encode(message, writer) {
                             if (!writer)
                                 writer = $Writer.create();
-                            if (message.partialSuccess != null && Object.hasOwnProperty.call(message, "partialSuccess"))
-                                $root.opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess.encode(message.partialSuccess, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
                             return writer;
                         };
 
@@ -6872,10 +6527,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                             while (reader.pos < end) {
                                 let tag = reader.uint32();
                                 switch (tag >>> 3) {
-                                case 1: {
-                                        message.partialSuccess = $root.opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess.decode(reader, reader.uint32());
-                                        break;
-                                    }
                                 default:
                                     reader.skipType(tag & 7);
                                     break;
@@ -6911,11 +6562,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                         ExportTraceServiceResponse.verify = function verify(message) {
                             if (typeof message !== "object" || message === null)
                                 return "object expected";
-                            if (message.partialSuccess != null && message.hasOwnProperty("partialSuccess")) {
-                                let error = $root.opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess.verify(message.partialSuccess);
-                                if (error)
-                                    return "partialSuccess." + error;
-                            }
                             return null;
                         };
 
@@ -6930,13 +6576,7 @@ export const opentelemetry = $root.opentelemetry = (() => {
                         ExportTraceServiceResponse.fromObject = function fromObject(object) {
                             if (object instanceof $root.opentelemetry.proto.collector.trace.v1.ExportTraceServiceResponse)
                                 return object;
-                            let message = new $root.opentelemetry.proto.collector.trace.v1.ExportTraceServiceResponse();
-                            if (object.partialSuccess != null) {
-                                if (typeof object.partialSuccess !== "object")
-                                    throw TypeError(".opentelemetry.proto.collector.trace.v1.ExportTraceServiceResponse.partialSuccess: object expected");
-                                message.partialSuccess = $root.opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess.fromObject(object.partialSuccess);
-                            }
-                            return message;
+                            return new $root.opentelemetry.proto.collector.trace.v1.ExportTraceServiceResponse();
                         };
 
                         /**
@@ -6948,15 +6588,8 @@ export const opentelemetry = $root.opentelemetry = (() => {
                          * @param {$protobuf.IConversionOptions} [options] Conversion options
                          * @returns {Object.<string,*>} Plain object
                          */
-                        ExportTraceServiceResponse.toObject = function toObject(message, options) {
-                            if (!options)
-                                options = {};
-                            let object = {};
-                            if (options.defaults)
-                                object.partialSuccess = null;
-                            if (message.partialSuccess != null && message.hasOwnProperty("partialSuccess"))
-                                object.partialSuccess = $root.opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess.toObject(message.partialSuccess, options);
-                            return object;
+                        ExportTraceServiceResponse.toObject = function toObject() {
+                            return {};
                         };
 
                         /**
@@ -6986,247 +6619,6 @@ export const opentelemetry = $root.opentelemetry = (() => {
                         };
 
                         return ExportTraceServiceResponse;
-                    })();
-
-                    v1.ExportTracePartialSuccess = (function() {
-
-                        /**
-                         * Properties of an ExportTracePartialSuccess.
-                         * @memberof opentelemetry.proto.collector.trace.v1
-                         * @interface IExportTracePartialSuccess
-                         * @property {number|Long|null} [rejectedSpans] ExportTracePartialSuccess rejectedSpans
-                         * @property {string|null} [errorMessage] ExportTracePartialSuccess errorMessage
-                         */
-
-                        /**
-                         * Constructs a new ExportTracePartialSuccess.
-                         * @memberof opentelemetry.proto.collector.trace.v1
-                         * @classdesc Represents an ExportTracePartialSuccess.
-                         * @implements IExportTracePartialSuccess
-                         * @constructor
-                         * @param {opentelemetry.proto.collector.trace.v1.IExportTracePartialSuccess=} [properties] Properties to set
-                         */
-                        function ExportTracePartialSuccess(properties) {
-                            if (properties)
-                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                    if (properties[keys[i]] != null)
-                                        this[keys[i]] = properties[keys[i]];
-                        }
-
-                        /**
-                         * ExportTracePartialSuccess rejectedSpans.
-                         * @member {number|Long} rejectedSpans
-                         * @memberof opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess
-                         * @instance
-                         */
-                        ExportTracePartialSuccess.prototype.rejectedSpans = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-                        /**
-                         * ExportTracePartialSuccess errorMessage.
-                         * @member {string} errorMessage
-                         * @memberof opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess
-                         * @instance
-                         */
-                        ExportTracePartialSuccess.prototype.errorMessage = "";
-
-                        /**
-                         * Creates a new ExportTracePartialSuccess instance using the specified properties.
-                         * @function create
-                         * @memberof opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess
-                         * @static
-                         * @param {opentelemetry.proto.collector.trace.v1.IExportTracePartialSuccess=} [properties] Properties to set
-                         * @returns {opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess} ExportTracePartialSuccess instance
-                         */
-                        ExportTracePartialSuccess.create = function create(properties) {
-                            return new ExportTracePartialSuccess(properties);
-                        };
-
-                        /**
-                         * Encodes the specified ExportTracePartialSuccess message. Does not implicitly {@link opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess.verify|verify} messages.
-                         * @function encode
-                         * @memberof opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess
-                         * @static
-                         * @param {opentelemetry.proto.collector.trace.v1.IExportTracePartialSuccess} message ExportTracePartialSuccess message or plain object to encode
-                         * @param {$protobuf.Writer} [writer] Writer to encode to
-                         * @returns {$protobuf.Writer} Writer
-                         */
-                        ExportTracePartialSuccess.encode = function encode(message, writer) {
-                            if (!writer)
-                                writer = $Writer.create();
-                            if (message.rejectedSpans != null && Object.hasOwnProperty.call(message, "rejectedSpans"))
-                                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.rejectedSpans);
-                            if (message.errorMessage != null && Object.hasOwnProperty.call(message, "errorMessage"))
-                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.errorMessage);
-                            return writer;
-                        };
-
-                        /**
-                         * Encodes the specified ExportTracePartialSuccess message, length delimited. Does not implicitly {@link opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess.verify|verify} messages.
-                         * @function encodeDelimited
-                         * @memberof opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess
-                         * @static
-                         * @param {opentelemetry.proto.collector.trace.v1.IExportTracePartialSuccess} message ExportTracePartialSuccess message or plain object to encode
-                         * @param {$protobuf.Writer} [writer] Writer to encode to
-                         * @returns {$protobuf.Writer} Writer
-                         */
-                        ExportTracePartialSuccess.encodeDelimited = function encodeDelimited(message, writer) {
-                            return this.encode(message, writer).ldelim();
-                        };
-
-                        /**
-                         * Decodes an ExportTracePartialSuccess message from the specified reader or buffer.
-                         * @function decode
-                         * @memberof opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess
-                         * @static
-                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                         * @param {number} [length] Message length if known beforehand
-                         * @returns {opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess} ExportTracePartialSuccess
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        ExportTracePartialSuccess.decode = function decode(reader, length) {
-                            if (!(reader instanceof $Reader))
-                                reader = $Reader.create(reader);
-                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess();
-                            while (reader.pos < end) {
-                                let tag = reader.uint32();
-                                switch (tag >>> 3) {
-                                case 1: {
-                                        message.rejectedSpans = reader.int64();
-                                        break;
-                                    }
-                                case 2: {
-                                        message.errorMessage = reader.string();
-                                        break;
-                                    }
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                                }
-                            }
-                            return message;
-                        };
-
-                        /**
-                         * Decodes an ExportTracePartialSuccess message from the specified reader or buffer, length delimited.
-                         * @function decodeDelimited
-                         * @memberof opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess
-                         * @static
-                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                         * @returns {opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess} ExportTracePartialSuccess
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        ExportTracePartialSuccess.decodeDelimited = function decodeDelimited(reader) {
-                            if (!(reader instanceof $Reader))
-                                reader = new $Reader(reader);
-                            return this.decode(reader, reader.uint32());
-                        };
-
-                        /**
-                         * Verifies an ExportTracePartialSuccess message.
-                         * @function verify
-                         * @memberof opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess
-                         * @static
-                         * @param {Object.<string,*>} message Plain object to verify
-                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                         */
-                        ExportTracePartialSuccess.verify = function verify(message) {
-                            if (typeof message !== "object" || message === null)
-                                return "object expected";
-                            if (message.rejectedSpans != null && message.hasOwnProperty("rejectedSpans"))
-                                if (!$util.isInteger(message.rejectedSpans) && !(message.rejectedSpans && $util.isInteger(message.rejectedSpans.low) && $util.isInteger(message.rejectedSpans.high)))
-                                    return "rejectedSpans: integer|Long expected";
-                            if (message.errorMessage != null && message.hasOwnProperty("errorMessage"))
-                                if (!$util.isString(message.errorMessage))
-                                    return "errorMessage: string expected";
-                            return null;
-                        };
-
-                        /**
-                         * Creates an ExportTracePartialSuccess message from a plain object. Also converts values to their respective internal types.
-                         * @function fromObject
-                         * @memberof opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess
-                         * @static
-                         * @param {Object.<string,*>} object Plain object
-                         * @returns {opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess} ExportTracePartialSuccess
-                         */
-                        ExportTracePartialSuccess.fromObject = function fromObject(object) {
-                            if (object instanceof $root.opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess)
-                                return object;
-                            let message = new $root.opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess();
-                            if (object.rejectedSpans != null)
-                                if ($util.Long)
-                                    (message.rejectedSpans = $util.Long.fromValue(object.rejectedSpans)).unsigned = false;
-                                else if (typeof object.rejectedSpans === "string")
-                                    message.rejectedSpans = parseInt(object.rejectedSpans, 10);
-                                else if (typeof object.rejectedSpans === "number")
-                                    message.rejectedSpans = object.rejectedSpans;
-                                else if (typeof object.rejectedSpans === "object")
-                                    message.rejectedSpans = new $util.LongBits(object.rejectedSpans.low >>> 0, object.rejectedSpans.high >>> 0).toNumber();
-                            if (object.errorMessage != null)
-                                message.errorMessage = String(object.errorMessage);
-                            return message;
-                        };
-
-                        /**
-                         * Creates a plain object from an ExportTracePartialSuccess message. Also converts values to other types if specified.
-                         * @function toObject
-                         * @memberof opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess
-                         * @static
-                         * @param {opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess} message ExportTracePartialSuccess
-                         * @param {$protobuf.IConversionOptions} [options] Conversion options
-                         * @returns {Object.<string,*>} Plain object
-                         */
-                        ExportTracePartialSuccess.toObject = function toObject(message, options) {
-                            if (!options)
-                                options = {};
-                            let object = {};
-                            if (options.defaults) {
-                                if ($util.Long) {
-                                    let long = new $util.Long(0, 0, false);
-                                    object.rejectedSpans = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                                } else
-                                    object.rejectedSpans = options.longs === String ? "0" : 0;
-                                object.errorMessage = "";
-                            }
-                            if (message.rejectedSpans != null && message.hasOwnProperty("rejectedSpans"))
-                                if (typeof message.rejectedSpans === "number")
-                                    object.rejectedSpans = options.longs === String ? String(message.rejectedSpans) : message.rejectedSpans;
-                                else
-                                    object.rejectedSpans = options.longs === String ? $util.Long.prototype.toString.call(message.rejectedSpans) : options.longs === Number ? new $util.LongBits(message.rejectedSpans.low >>> 0, message.rejectedSpans.high >>> 0).toNumber() : message.rejectedSpans;
-                            if (message.errorMessage != null && message.hasOwnProperty("errorMessage"))
-                                object.errorMessage = message.errorMessage;
-                            return object;
-                        };
-
-                        /**
-                         * Converts this ExportTracePartialSuccess to JSON.
-                         * @function toJSON
-                         * @memberof opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess
-                         * @instance
-                         * @returns {Object.<string,*>} JSON object
-                         */
-                        ExportTracePartialSuccess.prototype.toJSON = function toJSON() {
-                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                        };
-
-                        /**
-                         * Gets the default type url for ExportTracePartialSuccess
-                         * @function getTypeUrl
-                         * @memberof opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess
-                         * @static
-                         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
-                         * @returns {string} The default type url
-                         */
-                        ExportTracePartialSuccess.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
-                            if (typeUrlPrefix === undefined) {
-                                typeUrlPrefix = "type.googleapis.com";
-                            }
-                            return typeUrlPrefix + "/opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess";
-                        };
-
-                        return ExportTracePartialSuccess;
                     })();
 
                     return v1;
